@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="col-md4 col-sm-4 col-mf-offset-4 col-sm-offset-4">
+
+    <form id="formImagen" action="http://localhost:8000/polls/add/" enctype="multipart/form-data" method="post">
+        <input id="url" type="text" name="url" placeholder="url" class="form-control input-md" required=""/>
+        <input id="title" type="text" name="title" placeholder="title" class="form-control input-md" required=""/>
+        <input id="type" type="text" name="type" placeholder="type" class="form-control input-md" required=""/>
+        <input id="description" type="text" name="description" placeholder="description" class="form-control input-md" required=""/>
+        <input id="imageFile" type="file" name="imageFile" placeholder="imageFile" required=""/>
+            <input type="submit" value="Añadir" class="btn btn-primary btn-block"/>
+                <a href="http://localhost:8000/polls/verImagenes" class="btn btn-primary">Cancelar</a>
+    </form>
+
+    </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script>
+    $("form").submit(function(e){
+    var formData = new FormData($("#formImagen")[0]);
+    $.ajax({
+        url: $(this).attr('action'),
+        type: $(this).attr('method'),
+        data: formData,
+        cache: false,
+        contentType : false,
+        processData: false,
+        success: function(){
+            window.location = "http://localhost:8000/polls/verImagenes";
+        },
+    });
+        e.preventDefault();
+    });
+</script>
+</body>
+</html>

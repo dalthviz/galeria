@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="row">
+    <div class="col-md4 col-sm-4 col-mf-offset-4 col-sm-offset-4">
+        <div class="page-header">
+            <h2>
+                Sign Up
+            </h2>
+        </div>
+        <form action="" method="post" onsubmit="return enviarForm();">
+
+            <input id="username" type="text" name="username" placeholder="User name" class="form-control input-md" required=""/>
+            <input id="first_name" type="text" name="first_name" placeholder="first_name" class="form-control input-md" required=""/>
+            <input id="last_name" type="text" name="last_name" placeholder="last_name" class="form-control input-md" required=""/>
+            <input id="email" type="email" name="email" placeholder="email" class="form-control input-md" required=""/>
+            <input id="password" type="password" name="password" placeholder="password" class="form-control input-md" required=""/>
+            <input id="password2" type="password" name="password2" placeholder="password2" class="form-control input-md" required=""/>
+            <input type="submit" value="Registrar" class="btn btn-primary"/>
+            <a href="http://localhost:8000/polls/verImagenes" class="btn btn-primary">Cancelar</a>
+
+        </form>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script>
+    function enviarForm()
+    {
+        if ($('#password').val() != $('#password2').val() )
+        {
+            alert('Las contraseñas no coinciden');
+            return false;
+        }
+        $.ajax({
+            type:'POST',
+            url: 'http://localhost:8000/polls/addUser/',
+            data:JSON.stringify({ username: $('#username').val(), first_name:$('#first_name').val(), last_name:$('#last_name').val(),
+                password: $('#password').val(), email: $('#email').val()}),
+            contentType: 'application/json; charset-utf-8',
+            dataType: 'json',
+            success: function(data){
+                window.location = "http://localhost:8000/polls/verImagenes";
+            },
+            error: function(xhr, status, error){
+                alert('Hubo un error: '+ xhr.responseText);
+            }
+        });
+        return false;
+    }
+</script>
+</body>
+</html>
